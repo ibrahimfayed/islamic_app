@@ -22,14 +22,38 @@ List<Widget> tabs = [
   HadethTab(),
   SebhaTab(),
   RadioTab(),
-  TimeTab()
-  
+  TimeTab() 
+];
+List<String> backgroundimagesNames = [
+'quran_background',
+'hadeth_background',
+'sebha_background',
+'radio_background',
+'time_background',
+
 ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: tabs[currentIndex],
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage('assets/images/${backgroundimagesNames[currentIndex]}.png'))
+        ),
+        child: Column(
+          children: [
+            Image.asset(
+              'assets/images/home_header.png',
+              height: MediaQuery.sizeOf(context).height*0.15,
+              fit: BoxFit.fitWidth,
+              ),
+            tabs[currentIndex],
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (index) {
