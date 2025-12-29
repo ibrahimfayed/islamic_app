@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:islamic_app/tabs/quran/sura.dart';
 
 class SuraItem extends StatelessWidget {
+  Sura sura;
+
+  SuraItem(this.sura);
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -18,17 +23,17 @@ class SuraItem extends StatelessWidget {
                 ),
             ),
           ),
-          child: Text('1',style: textTheme.titleLarge,),
+          child: Text('${sura.num}',style: textTheme.titleLarge,),
         ),
         Column(
           crossAxisAlignment: .start, //it is an abbreviation of mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text('Al-Fatiha', style: textTheme.titleLarge),
-            Text('7 Verses', style: textTheme.titleSmall),
+            Text(sura.englishName, style: textTheme.titleLarge),
+            Text('${sura.ayatCount} Verses', style: textTheme.titleSmall),
           ],
         ),
         Spacer(),
-        Text('الفاتحه', style: textTheme.titleLarge),
+        Text(sura.arabicName, style: textTheme.titleLarge),
       ],
     );
   }
