@@ -7,6 +7,17 @@ class AppTheme {
 
   static ThemeData lightTheme = ThemeData();
   static ThemeData darkTheme = ThemeData(
+    appBarTheme: AppBarThemeData(
+      backgroundColor: black,
+      foregroundColor: primary,
+      centerTitle: true,
+      titleTextStyle: TextStyle(//هنا مينفعش أخد الستايل من نفس الفايل لأني فيه فهنشأه عادي من الأول
+       color: primary,
+       fontSize: 20,
+       fontWeight: FontWeight.bold
+      )
+    ),
+    scaffoldBackgroundColor: black,
      primaryColor: primary,//it put the color yallow by defult
      bottomNavigationBarTheme: BottomNavigationBarThemeData(
      backgroundColor: primary,
