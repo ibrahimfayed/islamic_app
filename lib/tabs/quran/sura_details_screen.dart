@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:islamic_app/app_theme.dart';
 import 'package:islamic_app/tabs/quran/quran_service.dart';
 import 'package:islamic_app/tabs/quran/sura.dart';
+import 'package:islamic_app/widgets/loading_indicator.dart';
 
 class SuraDetailsScreen extends StatefulWidget {
   static const String routeName = '/sura-details';
@@ -20,7 +21,10 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
     sura = ModalRoute.of(context)!.settings.arguments as Sura;
     TextTheme textTheme = Theme.of(context).textTheme;
     double screenHeight = MediaQuery.sizeOf(context).height;
-    loadSura();
+    if (ayat.isEmpty) {
+      loadSura();
+      }
+    
 
     return Scaffold(
       appBar: AppBar(title: Text(sura.englishName)),
@@ -51,7 +55,9 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
             ),
           ),
           Expanded(
-            child: ListView.separated(
+            child: ayat.isEmpty 
+            ? LoadingIndicator()
+            : ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               itemBuilder: (_, index) => Text(
                 ayat[index],

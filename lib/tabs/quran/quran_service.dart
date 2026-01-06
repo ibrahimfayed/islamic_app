@@ -350,11 +350,11 @@ class QuranService {
     5,
     6
   ];
-  static List<Sura> suras = List.generate(
+  static List<Sura> suraSearchResults = List.generate(
     114, 
   (index)=> getSuraFromIndex(index)
   );
-
+  static List<Sura>mostRecentlySuras = [];
   static Sura getSuraFromIndex(int index)=>//this is for one sura and i want to repeat it 114 times
    Sura(
     englishName: englishSuraNames[index],
@@ -365,6 +365,27 @@ class QuranService {
   static Future<String> loadSuraFile (int suraNum)=>
   rootBundle.loadString(
       'assets/text/$suraNum.txt',
-    ); 
+    );
+  static void searcSura(String quary){
+    suraSearchResults.clear();
+    for (int i = 0; i < 114; i++) {
+      if (
+        arabicSuraNames[i].contains(quary)||
+        englishSuraNames[i].toLowerCase().contains(quary.toLowerCase())
+      ) {
+        Sura sura = getSuraFromIndex(i);
+        suraSearchResults.add(sura);
+      }
+    }
 }
+
+static void addSuraToMostRecently(Sura sura){
+  bool alreadyExist = mostRecentlySuras.any(
+    (mostRecentlySura)=>mostRecentlySura.num == sura.num
+  );
+  if (alreadyExist) return;
+  mostRecentlySuras.add(sura);
+}
+}
+
 

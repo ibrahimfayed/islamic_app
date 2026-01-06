@@ -18,6 +18,25 @@ class AppTheme {
       )
     ),
     scaffoldBackgroundColor: black,
+    inputDecorationTheme: InputDecorationThemeData(
+      hintStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.white.withValues(alpha: 0.6)
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: primary,
+        ),
+        borderRadius: BorderRadius.circular(13)
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: primary,
+        ),
+        borderRadius: BorderRadius.circular(13)
+      )
+    ),
      primaryColor: primary,//it put the color yallow by defult
      bottomNavigationBarTheme: BottomNavigationBarThemeData(
      backgroundColor: primary,
