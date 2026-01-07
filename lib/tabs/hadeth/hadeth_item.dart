@@ -81,6 +81,7 @@ class _HadethItemState extends State<HadethItem> {
                 child: hadeth == null
                     ? LoadingIndicator(color: AppTheme.black)
                     : ListView.separated(
+                        physics: NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         itemBuilder: (_, index) => Text(
                           hadeth!.content[index],
