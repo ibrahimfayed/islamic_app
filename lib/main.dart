@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_app/app_theme.dart';
 import 'package:islamic_app/home_screen.dart';
+import 'package:islamic_app/tabs/quran/quran_service.dart';
 import 'package:islamic_app/tabs/quran/sura_details_screen.dart';
 
-void main(){
+void main()async{
+  WidgetsFlutterBinding.ensureInitialized();//this is required when i use thing before runapp
+  await QuranService.getMostRecentlySuras();
   runApp(IslamicApp());
 }
 

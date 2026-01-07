@@ -1,5 +1,6 @@
 import "package:flutter/services.dart";
 import "package:islamic_app/tabs/quran/sura.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 class QuranService {
   static List<String> arabicSuraNames = [
@@ -116,7 +117,7 @@ class QuranService {
     "المسد",
     "الإخلاص",
     "الفلق",
-    "الناس"
+    "الناس",
   ];
   static List<String> englishSuraNames = [
     "Al-Fatiha",
@@ -232,7 +233,7 @@ class QuranService {
     "Al-Masad",
     "Al-Ikhlas",
     "Al-Falaq",
-    "An-Nas"
+    "An-Nas",
   ];
   static List<int> ayatCounts = [
     7,
@@ -348,44 +349,60 @@ class QuranService {
     5,
     4,
     5,
-    6
+    6,
   ];
   static List<Sura> suraSearchResults = List.generate(
-    114, 
-  (index)=> getSuraFromIndex(index)
+    114,
+    (index) => getSuraFromIndex(index),
   );
-  static List<Sura>mostRecentlySuras = [];
-  static Sura getSuraFromIndex(int index)=>//this is for one sura and i want to repeat it 114 times
-   Sura(
+  static List<Sura> mostRecentlySuras = [];
+  static Sura getSuraFromIndex(
+    int index,
+  ) => //this is for one sura and i want to repeat it 114 times
+  Sura(
     englishName: englishSuraNames[index],
     arabicName: arabicSuraNames[index],
     ayatCount: ayatCounts[index],
-    num: index + 1);
+    num: index + 1,
+  );
 
-  static Future<String> loadSuraFile (int suraNum)=>
-  rootBundle.loadString(
-      'assets/text/$suraNum.txt',
-    );
-  static void searcSura(String quary){
+  static Future<String> loadSuraFile(int suraNum) =>
+      rootBundle.loadString('assets/text/$suraNum.txt');
+
+  static void searcSura(String quary) {
     suraSearchResults.clear();
     for (int i = 0; i < 114; i++) {
-      if (
-        arabicSuraNames[i].contains(quary)||
-        englishSuraNames[i].toLowerCase().contains(quary.toLowerCase())
-      ) {
+      if (arabicSuraNames[i].contains(quary) ||
+          englishSuraNames[i].toLowerCase().contains(quary.toLowerCase())) {
         Sura sura = getSuraFromIndex(i);
         suraSearchResults.add(sura);
       }
     }
-}
+  }
 
-static void addSuraToMostRecently(Sura sura){
-  bool alreadyExist = mostRecentlySuras.any(
-    (mostRecentlySura)=>mostRecentlySura.num == sura.num
-  );
-  if (alreadyExist) return;
-  mostRecentlySuras.add(sura);
-}
-}
+  static Future<void> getMostRecentlySuras() async {
+    SharedPreferences sharedPref = await SharedPreferences.getInstance();
+    List<String>? mostRecentlyIndexes = sharedPref.getStringList(
+      'mostRecentlyIndexes',
+    );
+    if (mostRecentlyIndexes == null) return;
+    mostRecentlySuras = mostRecentlyIndexes.map((indexString) {
+      int index = int.parse(indexString);
+      Sura sura = getSuraFromIndex(index);
+      return sura;
+    }).toList();
+  }
 
-
+  static Future<void> addSuraToMostRecently(Sura sura) async {
+    bool alreadyExist = mostRecentlySuras.any(
+      (mostRecentlySura) => mostRecentlySura.num == sura.num,
+    );
+    if (alreadyExist) return;
+    mostRecentlySuras.add(sura);
+    List<String> mostRecentlyIndexes = mostRecentlySuras
+        .map((sura) => (sura.num - 1).toString())
+        .toList();
+    SharedPreferences sharedPref = await SharedPreferences.getInstance();
+    sharedPref.setStringList('mostRecentlyIndexes', mostRecentlyIndexes);
+  }
+}
