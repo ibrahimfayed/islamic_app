@@ -50,7 +50,7 @@ List<String> backgroundimagesNames = [
               height: MediaQuery.sizeOf(context).height*0.15,
               fit: BoxFit.fitWidth,
               ),
-            tabs[currentIndex],
+            Expanded(child: tabs[currentIndex]),
           ],
         ),
       ),
