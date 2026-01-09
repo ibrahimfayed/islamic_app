@@ -43,15 +43,17 @@ List<String> backgroundimagesNames = [
             fit: BoxFit.fill,
             image: AssetImage('assets/images/${backgroundimagesNames[currentIndex]}.png'))
         ),
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/images/home_header.png',
-              height: MediaQuery.sizeOf(context).height*0.15,
-              fit: BoxFit.fitWidth,
-              ),
-            Expanded(child: tabs[currentIndex]),
-          ],
+        child: SafeArea(
+          child: Column(
+            children: [
+              Image.asset(
+                'assets/images/home_header.png',
+                height: MediaQuery.sizeOf(context).height*0.15,
+                fit: BoxFit.fitWidth,
+                ),
+              Expanded(child: tabs[currentIndex]),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
