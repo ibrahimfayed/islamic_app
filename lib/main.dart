@@ -26,7 +26,7 @@ class IslamicApp extends StatelessWidget {
         OnBoardScreen.routeName:(_)=>OnBoardScreen(),
 
       },
-      initialRoute: HomeScreen.routeName,
+      initialRoute: OnBoardScreen.routeName,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.dark,//here i choose which theme i will use
