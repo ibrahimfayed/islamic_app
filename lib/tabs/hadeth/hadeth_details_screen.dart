@@ -34,10 +34,13 @@ class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
                   height: screenHeight * 0.1,
                   fit: BoxFit.fill,
                 ),
-                Text(
-                  hadeth.title,
-                  style: textTheme.headlineSmall!.copyWith(
-                    color: AppTheme.primary,
+                Expanded(
+                  child: Text(
+                    hadeth.title,
+                    textAlign: .center,
+                    style: textTheme.headlineSmall!.copyWith(
+                      color: AppTheme.primary,
+                    ),
                   ),
                 ),
                 Image.asset(
