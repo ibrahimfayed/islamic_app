@@ -7,6 +7,7 @@ import 'package:islamic_app/onboarding/first_screen.dart';
 import 'package:islamic_app/onboarding/forth_screen.dart';
 import 'package:islamic_app/onboarding/second_screen.dart';
 import 'package:islamic_app/onboarding/third_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoardScreen extends StatefulWidget {
   static const String routeName = '/onboard';
@@ -48,16 +49,15 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                      _controller.animateToPage(
-                        index -1,
-                        duration: Duration(milliseconds: 250),
-                        curve: Curves.linear,
-                      );
-                    
+                    _controller.animateToPage(
+                      index - 1,
+                      duration: Duration(milliseconds: 250),
+                      curve: Curves.linear,
+                    );
                   },
                   child: getLeftWidget(),
                 ),
-                
+
                 Row(
                   mainAxisAlignment: .center,
                   children: [
@@ -73,9 +73,14 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                   ],
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setBool('onBoarding', true);
+                    if (!mounted) return;//مش فاهمها
                     if (index == 4) {
-                      Navigator.of(context).pushNamed(HomeScreen.routeName);
+                      Navigator.of(
+                        context,
+                      ).pushReplacementNamed(HomeScreen.routeName);
                     } else {
                       _controller.animateToPage(
                         index + 1,
